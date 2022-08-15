@@ -6,3 +6,6 @@ https://phoenixnap.com/kb/how-to-create-new-mysql-user-account-grant-privileges
 
 
 https://stackoverflow.com/questions/21344777/how-to-switch-a-user-per-task-or-set-of-tasks
+
+export PATH="$PATH:/usr/java/latest/bin"
+set JAVA_HOME=/usr/java/latest
