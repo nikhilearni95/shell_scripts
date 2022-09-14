@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    stages {
+        stage("Gather Deployment Parameters") {
+            steps {
+                script{
+                timeout(time: 120, unit: 'SECONDS') {
+                        // Show the select input modal
+                       def INPUT_PARAMS = input message: 'Please Provide Parameters', ok: 'Next',
+                                        parameters: [
+                                        choice(name: 'ENVIRONMENT', choices: ['dev','qa'].join('\n'), description: 'Please select the Environment'),
+                                        choice(name: 'IMAGE_TAG', choices: ['psms','smpp'].join('\n'), description: 'Available Docker Images')]
+                        env.ENVIRONMENT = INPUT_PARAMS.ENVIRONMENT
+                        env.IMAGE_TAG = INPUT_PARAMS.IMAGE_TAG
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                    sh 'mkdir /var/lib/jenkins/workspace/dropdown/$ENVIRONMENT'
+            }
+        }
+        stage('Deploy1') {
+            steps {
+                sh 'mkdir /var/lib/jenkins/workspace/dropdown/$IMAGE_TAG'
+            }
+        }
+    }
+}
